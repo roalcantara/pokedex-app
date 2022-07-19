@@ -1,0 +1,115 @@
+name: Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+env:
+  CI: true
+  FORCE_COLOR: true
+  JAVA_VERSION: 11
+  JAVA_DISTRIBUTION: temurin
+  ANDROID_API_LEVEL: 30
+  ANDROID_API_ARCH: x86
+  ANDROID_API_TARGET: aosp_atd
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd
+            ~/.android/adb
+          key: ${{ runner.os }}-avd-${{ env.ANDROID_API_LEVEL }}-${{ env.ANDROID_API_ARCH }}-${{ env.ANDROID_API_TARGET }}
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ env.ANDROID_API_LEVEL }}
+          arch: ${{ env.ANDROID_API_ARCH }}
+          target: ${{ env.ANDROID_API_TARGET }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: markdownlint
+        run: npm init -y && npm install --location=global markdownlint-cli2 && make markdownlint
+      - uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+      - name: Setup gradle.properties CI
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+      - uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-home-cache-includes: |
+            caches
+            notifications
+            jdks
+            wrappers
+          arguments: check --stacktrace
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: check-results
+          path: app/build/reports
+
+  e2e:
+    needs:
+      - setup
+      - check
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+      - name: Setup gradle.properties CI
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+      - uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd
+            ~/.android/adb
+          key: ${{ runner.os }}-avd-${{ env.ANDROID_API_LEVEL }}-${{ env.ANDROID_API_ARCH }}-${{ env.ANDROID_API_TARGET }}
+      - name: Build and Run Instrumented Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ env.ANDROID_API_LEVEL }}
+          arch: ${{ env.ANDROID_API_ARCH }}
+          target: ${{ env.ANDROID_API_TARGET }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew app:cC --stacktrace
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: instrumented-results
+          path: app/build/reports
