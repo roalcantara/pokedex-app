@@ -1,0 +1,6 @@
+# https://github.com/DavidAnson/markdownlint
+# https://dlaa.me/markdownlint/
+---
+default: true
+MD013: false
+MD034: false

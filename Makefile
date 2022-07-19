@@ -72,12 +72,20 @@ stop: ## Stop all gradle Daemons
 .PHONY: reset
 reset: stop clear_all assemble ## Reset the dependencies https://is.gd/6GHdhj
 
+.PHONY: markdownlint
+markdownlint: ## Lints all markdown files
+	npx markdownlint-cli2 "**/*.md" "#node_modules" "#CHANGELOG.md"
+
+.PHONY: markdownlint_fix
+markdownlint_fix: ## Fix all markdown lint violations
+	npx markdownlint-cli2-fix "**/*.md" "#node_modules" "#CHANGELOG.md"
+
 .PHONY: lint
-lint: ## Runs the linters
+lint: markdownlint ## Runs the linters
 	./gradlew lint --stacktrace --continue
 
 .PHONY: lint_fix
-lint_fix: ## Fix lint violations
+lint_fix: markdownlint_fix ## Fix lint violations
 	./gradlew lintFix
 
 .PHONY: check
