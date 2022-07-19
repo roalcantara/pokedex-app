@@ -1,6 +1,7 @@
 # Pokedex
 
 [![Check](https://github.com/roalcantara/pokemon-app/actions/workflows/check.yml/badge.svg)](https://github.com/roalcantara/pokemon-app/actions/workflows/check.yml)
+[![Preview](https://github.com/roalcantara/pokemon-app/actions/workflows/preview.yml/badge.svg)](https://github.com/roalcantara/pokemon-app/actions/workflows/preview.yml)
 
 Based on the Advanced Android in Kotlin [course][7]
 
