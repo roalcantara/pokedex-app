@@ -1,4 +1,4 @@
-package com.demo.pokedex
+package com.demo.pokedex.ui.views
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.demo.pokedex.R
 import com.demo.pokedex.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
