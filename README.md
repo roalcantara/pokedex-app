@@ -1,5 +1,7 @@
 # Pokedex
 
+[![Check](https://github.com/roalcantara/pokemon-app/actions/workflows/check.yml/badge.svg)](https://github.com/roalcantara/pokemon-app/actions/workflows/check.yml)
+
 Based on the Advanced Android in Kotlin [course][7]
 
 [![MIT license](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](LICENSE) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg?style=flat-square)][2] [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)][4] [![Editor Config](https://img.shields.io/badge/Editor%20Config-1.0.1-crimson.svg?style=flat-square&logo=editorconfig)][3] [![Ktlint](https://img.shields.io/badge/Ktlint-codestyle-blue.svg?style=flat-square)][10] [![Ktlint](https://img.shields.io/badge/Spotless-codestyle-blue.svg?style=flat-square)][11] [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)][14] [![Make](https://img.shields.io/badge/make-4.3-green.svg?style=flat-square)][15] [![markdownlint](https://img.shields.io/badge/markdownlint-000?logo=markdown&logoColor=fff&style=flat)][16]
