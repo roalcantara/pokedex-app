@@ -2,6 +2,7 @@
 
 [![Check](https://github.com/roalcantara/pokedex-app/actions/workflows/check.yml/badge.svg)](https://github.com/roalcantara/pokedex-app/actions/workflows/check.yml)
 [![Preview](https://github.com/roalcantara/pokedex-app/actions/workflows/preview.yml/badge.svg)](https://github.com/roalcantara/pokedex-app/actions/workflows/preview.yml) [![Release](https://github.com/roalcantara/pokedex-app/actions/workflows/release.yml/badge.svg)](https://github.com/roalcantara/pokedex-app/actions/workflows/release.yml)
+[![Deployment](https://github.com/roalcantara/pokedex-app/actions/workflows/deployment.yml/badge.svg)](https://github.com/roalcantara/pokedex-app/actions/workflows/deployment.yml)
 
 Based on the Advanced Android in Kotlin [course][7]
 
