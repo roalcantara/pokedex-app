@@ -22,6 +22,8 @@ The [Advanced Android in Kotlin course][7], created by the Google Developers Tra
 ## Dependencies
 
 - [git][5]
+- [ASDF][8]
+- [Direnv][9]
 
 ## Acknowledgements
 
@@ -47,3 +49,5 @@ The project is available as open source under the terms of the [MIT][1] [License
 [5]: https://git-scm.com "Git"
 [6]: https://developer.android.com/jetpack/docs/guide "Guide to app architecture  |  Android Developers"
 [7]: https://developer.android.com/codelabs/advanced-android-kotlin-training-welcome "Advanced Android in Kotlin"
+[8]: https://asdf-vm.com "ASDF: Manage multiple runtime versions with a single CLI tool"
+[9]: https://direnv.net "Direnv: Unclutter your .profile"

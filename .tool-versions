@@ -1,0 +1,4 @@
+gradle 7.4.2
+kotlin 1.7.0
+java temurin-18.0.1+10
+ktlint 0.45.2
